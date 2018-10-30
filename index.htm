@@ -5,23 +5,98 @@
             * {
                 font-family: sans-serif;
             }
-            body > div {
+            body {
+                margin: 0;
+                padding: 0;
+            }
+            h1 {
+                padding: 30px;
+                margin: 0;
+            }
+            .jumbo {
+                background-image: url('assets/jumbo.jpg');
+                background-size: cover;
+                background-position: center;
+                height: 300px;
+            }
+            p {
+                padding: 30px;
+                margin: 0;
+                background-color: #eeeeee;
+                border-bottom: solid 1px #000;
+            }
+            body div:not(.jumbo) {
                 width: 300px;
                 float: left;
                 padding: 20px;
-                margin-right: 10px;
+                margin: 10px;
                 border: solid 1px #999999;
+                font-weight: bolder;
+                color: white;
             }
-            body > div:first-child {
-                background-color: aliceblue;
+            body div.girl {
+                background-color: black;
             }
-            body > div:last-child {
-                background-color: #eee;
+            body div.boy {
+                background-color: navy;
+            }
+            body div.trans {
+                background-color: coral;
+            }
+            body div.genderContainer {
+                width: auto;
+            }
+            form {
+                padding: 20px;
+            }
+            form input {
+                padding: 8px;
             }
         </style>
     </head>
     <body>
-        <div>Hello Courtney.</div>
-        <div>Hi Joe.</div>
+        <h1>THIS IS CODING, BITCHES</h1>
+        <div class="jumbo"></div>
+        <p>This is HTML and CSS.</p>
+        <div class="genderContainer">
+            <div class="girl">Hello Courtney.</div>
+            <div class="boy">Hi Joe.</div>
+        </div>
+        <form>
+            <label>
+                Name
+                <input name="name" />
+            </label>
+            <label>
+                Gender
+                <select name="gender">
+                    <option value="boy">boy</option>
+                    <option value="girl">girl</option>
+                    <option value="trans">trans</option>
+                </select>
+            </label>
+            <button>Add</button>
+        </form>
+
+        <script>
+            class DomHelper {
+                constructor() {
+                    document.getElementsByTagName('button')[0].onclick = this.addGenderPane;
+                }
+                addGenderPane(event) {
+                    event.preventDefault();
+
+                    const parent = document.querySelectorAll('.genderContainer')[0];
+                    const { name, gender } = document.querySelectorAll('form')[0].elements;
+                    const domElement = document.createElement('div');
+
+                    domElement.className = gender.options[gender.selectedIndex].value;
+                    domElement.innerHTML = name.value;
+                    parent.appendChild(domElement);
+                }
+            };
+
+            new DomHelper();
+        </script>
     </body>
 </html>
